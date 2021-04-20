@@ -1,0 +1,504 @@
+Terminals unused in grammar
+
+   FLOAT
+   CHAR
+   VOID
+   FLOATCONST
+   CHARCONST
+   TRUE
+   FALSE
+   COMMA
+   IF
+   ELSE
+   LOOP
+   BREAK
+   RETURN
+   LES
+   LEQ
+   GRE
+   GEQ
+   EQL
+   NEQ
+   AND
+   OR
+   NOT
+   LSBR
+   RSBR
+   ERR
+
+
+Grammar
+
+    0 $accept: start $end
+
+    1 start: prog
+
+    2 $@1: %empty
+
+    3 prog: INIT $@1 LFBR stmts RFBR
+
+    4 stmts: stmt stmts
+    5      | %empty
+
+    6 stmt: INT ID SCOL
+    7     | loc ASSGN expr SCOL
+    8     | PRINT LPBR loc RPBR SCOL
+
+    9 expr: expr PLUS expr
+   10     | expr MINUS expr
+   11     | expr MUL expr
+   12     | expr DIV expr
+   13     | LPBR expr RPBR
+   14     | MINUS expr
+   15     | loc
+   16     | INTCONST
+
+   17 loc: ID
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+INIT (258) 3
+INT (259) 6
+FLOAT (260)
+CHAR (261)
+VOID (262)
+INTCONST (263) 16
+FLOATCONST (264)
+CHARCONST (265)
+TRUE (266)
+FALSE (267)
+ID (268) 6 17
+COMMA (269)
+SCOL (270) 6 7 8
+IF (271)
+ELSE (272)
+LOOP (273)
+BREAK (274)
+RETURN (275)
+PRINT (276) 8
+ASSGN (277) 7
+PLUS (278) 9
+MINUS (279) 10 14
+MUL (280) 11
+DIV (281) 12
+LES (282)
+LEQ (283)
+GRE (284)
+GEQ (285)
+EQL (286)
+NEQ (287)
+AND (288)
+OR (289)
+NOT (290)
+LSBR (291)
+RSBR (292)
+LPBR (293) 8 13
+RPBR (294) 8 13
+LFBR (295) 3
+RFBR (296) 3
+ERR (297)
+UMINUS (298)
+BRAC (299)
+
+
+Nonterminals, with rules where they appear
+
+$accept (45)
+    on left: 0
+start (46)
+    on left: 1, on right: 0
+prog (47)
+    on left: 3, on right: 1
+$@1 (48)
+    on left: 2, on right: 3
+stmts (49)
+    on left: 4 5, on right: 3 4
+stmt (50)
+    on left: 6 7 8, on right: 4
+expr (51)
+    on left: 9 10 11 12 13 14 15 16, on right: 7 9 10 11 12 13 14
+loc (52)
+    on left: 17, on right: 7 8 15
+
+
+State 0
+
+    0 $accept: . start $end
+
+    INIT  shift, and go to state 1
+
+    start  go to state 2
+    prog   go to state 3
+
+
+State 1
+
+    3 prog: INIT . $@1 LFBR stmts RFBR
+
+    $default  reduce using rule 2 ($@1)
+
+    $@1  go to state 4
+
+
+State 2
+
+    0 $accept: start . $end
+
+    $end  shift, and go to state 5
+
+
+State 3
+
+    1 start: prog .
+
+    $default  reduce using rule 1 (start)
+
+
+State 4
+
+    3 prog: INIT $@1 . LFBR stmts RFBR
+
+    LFBR  shift, and go to state 6
+
+
+State 5
+
+    0 $accept: start $end .
+
+    $default  accept
+
+
+State 6
+
+    3 prog: INIT $@1 LFBR . stmts RFBR
+
+    INT    shift, and go to state 7
+    ID     shift, and go to state 8
+    PRINT  shift, and go to state 9
+
+    $default  reduce using rule 5 (stmts)
+
+    stmts  go to state 10
+    stmt   go to state 11
+    loc    go to state 12
+
+
+State 7
+
+    6 stmt: INT . ID SCOL
+
+    ID  shift, and go to state 13
+
+
+State 8
+
+   17 loc: ID .
+
+    $default  reduce using rule 17 (loc)
+
+
+State 9
+
+    8 stmt: PRINT . LPBR loc RPBR SCOL
+
+    LPBR  shift, and go to state 14
+
+
+State 10
+
+    3 prog: INIT $@1 LFBR stmts . RFBR
+
+    RFBR  shift, and go to state 15
+
+
+State 11
+
+    4 stmts: stmt . stmts
+
+    INT    shift, and go to state 7
+    ID     shift, and go to state 8
+    PRINT  shift, and go to state 9
+
+    $default  reduce using rule 5 (stmts)
+
+    stmts  go to state 16
+    stmt   go to state 11
+    loc    go to state 12
+
+
+State 12
+
+    7 stmt: loc . ASSGN expr SCOL
+
+    ASSGN  shift, and go to state 17
+
+
+State 13
+
+    6 stmt: INT ID . SCOL
+
+    SCOL  shift, and go to state 18
+
+
+State 14
+
+    8 stmt: PRINT LPBR . loc RPBR SCOL
+
+    ID  shift, and go to state 8
+
+    loc  go to state 19
+
+
+State 15
+
+    3 prog: INIT $@1 LFBR stmts RFBR .
+
+    $default  reduce using rule 3 (prog)
+
+
+State 16
+
+    4 stmts: stmt stmts .
+
+    $default  reduce using rule 4 (stmts)
+
+
+State 17
+
+    7 stmt: loc ASSGN . expr SCOL
+
+    INTCONST  shift, and go to state 20
+    ID        shift, and go to state 8
+    MINUS     shift, and go to state 21
+    LPBR      shift, and go to state 22
+
+    expr  go to state 23
+    loc   go to state 24
+
+
+State 18
+
+    6 stmt: INT ID SCOL .
+
+    $default  reduce using rule 6 (stmt)
+
+
+State 19
+
+    8 stmt: PRINT LPBR loc . RPBR SCOL
+
+    RPBR  shift, and go to state 25
+
+
+State 20
+
+   16 expr: INTCONST .
+
+    $default  reduce using rule 16 (expr)
+
+
+State 21
+
+   14 expr: MINUS . expr
+
+    INTCONST  shift, and go to state 20
+    ID        shift, and go to state 8
+    MINUS     shift, and go to state 21
+    LPBR      shift, and go to state 22
+
+    expr  go to state 26
+    loc   go to state 24
+
+
+State 22
+
+   13 expr: LPBR . expr RPBR
+
+    INTCONST  shift, and go to state 20
+    ID        shift, and go to state 8
+    MINUS     shift, and go to state 21
+    LPBR      shift, and go to state 22
+
+    expr  go to state 27
+    loc   go to state 24
+
+
+State 23
+
+    7 stmt: loc ASSGN expr . SCOL
+    9 expr: expr . PLUS expr
+   10     | expr . MINUS expr
+   11     | expr . MUL expr
+   12     | expr . DIV expr
+
+    SCOL   shift, and go to state 28
+    PLUS   shift, and go to state 29
+    MINUS  shift, and go to state 30
+    MUL    shift, and go to state 31
+    DIV    shift, and go to state 32
+
+
+State 24
+
+   15 expr: loc .
+
+    $default  reduce using rule 15 (expr)
+
+
+State 25
+
+    8 stmt: PRINT LPBR loc RPBR . SCOL
+
+    SCOL  shift, and go to state 33
+
+
+State 26
+
+    9 expr: expr . PLUS expr
+   10     | expr . MINUS expr
+   11     | expr . MUL expr
+   12     | expr . DIV expr
+   14     | MINUS expr .
+
+    $default  reduce using rule 14 (expr)
+
+
+State 27
+
+    9 expr: expr . PLUS expr
+   10     | expr . MINUS expr
+   11     | expr . MUL expr
+   12     | expr . DIV expr
+   13     | LPBR expr . RPBR
+
+    PLUS   shift, and go to state 29
+    MINUS  shift, and go to state 30
+    MUL    shift, and go to state 31
+    DIV    shift, and go to state 32
+    RPBR   shift, and go to state 34
+
+
+State 28
+
+    7 stmt: loc ASSGN expr SCOL .
+
+    $default  reduce using rule 7 (stmt)
+
+
+State 29
+
+    9 expr: expr PLUS . expr
+
+    INTCONST  shift, and go to state 20
+    ID        shift, and go to state 8
+    MINUS     shift, and go to state 21
+    LPBR      shift, and go to state 22
+
+    expr  go to state 35
+    loc   go to state 24
+
+
+State 30
+
+   10 expr: expr MINUS . expr
+
+    INTCONST  shift, and go to state 20
+    ID        shift, and go to state 8
+    MINUS     shift, and go to state 21
+    LPBR      shift, and go to state 22
+
+    expr  go to state 36
+    loc   go to state 24
+
+
+State 31
+
+   11 expr: expr MUL . expr
+
+    INTCONST  shift, and go to state 20
+    ID        shift, and go to state 8
+    MINUS     shift, and go to state 21
+    LPBR      shift, and go to state 22
+
+    expr  go to state 37
+    loc   go to state 24
+
+
+State 32
+
+   12 expr: expr DIV . expr
+
+    INTCONST  shift, and go to state 20
+    ID        shift, and go to state 8
+    MINUS     shift, and go to state 21
+    LPBR      shift, and go to state 22
+
+    expr  go to state 38
+    loc   go to state 24
+
+
+State 33
+
+    8 stmt: PRINT LPBR loc RPBR SCOL .
+
+    $default  reduce using rule 8 (stmt)
+
+
+State 34
+
+   13 expr: LPBR expr RPBR .
+
+    $default  reduce using rule 13 (expr)
+
+
+State 35
+
+    9 expr: expr . PLUS expr
+    9     | expr PLUS expr .
+   10     | expr . MINUS expr
+   11     | expr . MUL expr
+   12     | expr . DIV expr
+
+    MUL  shift, and go to state 31
+    DIV  shift, and go to state 32
+
+    $default  reduce using rule 9 (expr)
+
+
+State 36
+
+    9 expr: expr . PLUS expr
+   10     | expr . MINUS expr
+   10     | expr MINUS expr .
+   11     | expr . MUL expr
+   12     | expr . DIV expr
+
+    MUL  shift, and go to state 31
+    DIV  shift, and go to state 32
+
+    $default  reduce using rule 10 (expr)
+
+
+State 37
+
+    9 expr: expr . PLUS expr
+   10     | expr . MINUS expr
+   11     | expr . MUL expr
+   11     | expr MUL expr .
+   12     | expr . DIV expr
+
+    $default  reduce using rule 11 (expr)
+
+
+State 38
+
+    9 expr: expr . PLUS expr
+   10     | expr . MINUS expr
+   11     | expr . MUL expr
+   12     | expr . DIV expr
+   12     | expr DIV expr .
+
+    $default  reduce using rule 12 (expr)
